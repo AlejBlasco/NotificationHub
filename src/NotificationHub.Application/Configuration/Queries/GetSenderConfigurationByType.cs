@@ -3,10 +3,10 @@ using Microsoft.Extensions.Configuration;
 
 namespace NotificationHub.Application.Configuration.Queries;
 
-internal record GetSenderConfigurationByTypeQuery(NotificationType Type)
+public record GetSenderConfigurationByTypeQuery(NotificationType Type)
     : IRequest<string>;
 
-internal class GetSenderConfigurationByTypeQueryHandler
+public class GetSenderConfigurationByTypeQueryHandler
     : IRequestHandler<GetSenderConfigurationByTypeQuery, string>
 {
     private readonly IConfiguration _configuration;
