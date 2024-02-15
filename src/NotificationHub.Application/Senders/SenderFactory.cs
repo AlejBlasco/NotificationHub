@@ -18,25 +18,28 @@ internal static class SenderFactory
                 var jsonConfig = mediator.Send(new GetSenderConfigurationByTypeQuery(type))
                     .Result;
 
-                switch (type)
+                if (!string.IsNullOrWhiteSpace(jsonConfig))
                 {
-                    case NotificationType.Email_SMTP:
-                        sender = new EmailSmtpSender(configuration: JsonSerializer.Deserialize<SmtpConfiguration>(jsonConfig)!,
-                             logger);
-                        break;
-                    case NotificationType.Email_O365:
-                        sender = new EmailOffice365Sender(configuration: JsonSerializer.Deserialize<Office365Configuration>(jsonConfig)!,
-                             logger);
-                        break;
-                    case NotificationType.SMS:
-                        sender = new SmsAzureCommsSender(configuration: JsonSerializer.Deserialize<SmsAzureConfiguration>(jsonConfig)!,
-                             logger);
-                        break;
-                    case NotificationType.WhatsApp:
-                        throw new NotImplementedException();
+                    switch (type)
+                    {
+                        case NotificationType.Email_SMTP:
+                            sender = new EmailSmtpSender(configuration: JsonSerializer.Deserialize<SmtpConfiguration>(jsonConfig)!,
+                                 logger);
+                            break;
+                        case NotificationType.Email_O365:
+                            sender = new EmailOffice365Sender(configuration: JsonSerializer.Deserialize<Office365Configuration>(jsonConfig)!,
+                                 logger);
+                            break;
+                        case NotificationType.SMS:
+                            sender = new SmsAzureCommsSender(configuration: JsonSerializer.Deserialize<SmsAzureConfiguration>(jsonConfig)!,
+                                 logger);
+                            break;
+                        case NotificationType.WhatsApp:
+                            throw new NotImplementedException();
+                    }
+                    if (sender != null)
+                        _cache.Add(type, sender);
                 }
-                if (sender != null)
-                    _cache.Add(type, sender);
             }
         }
         return sender;
