@@ -1,15 +1,15 @@
 ﻿namespace NotificationHub.Application.Notification.Models;
 
-internal class Message
+public class Message
 {
-    internal string Body { get; set; } = string.Empty;
+    public string? Body { get; set; }
 
-    internal string? Subject { get; set; }
+    public string? Subject { get; set; }
 
-    internal string To { get; set; } = string.Empty;
+    public string? To { get; set; }
 
-    private Message() { }   
-    internal Message(string body, string? subject, string to)
+    private Message() { }
+    public Message(string? body, string? subject, string? to)
     {
         Body = body;
         Subject = subject;

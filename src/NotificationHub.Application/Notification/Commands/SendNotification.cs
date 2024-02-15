@@ -4,35 +4,36 @@ using NotificationHub.Application.Notification.Models;
 
 namespace NotificationHub.Application.Notification.Commands;
 
-internal record SendNotificationCommand(Message Message, Senders.ISender? Sender)
+public record SendNotificationCommand(Message? Message, Senders.ISender? Sender)
     : IRequest<Unit>;
 
-internal class SendNotificationCommandValidator
+public class SendNotificationCommandValidator
     : AbstractValidator<SendNotificationCommand>
 {
-    internal SendNotificationCommandValidator()
+    public SendNotificationCommandValidator()
     {
         RuleFor(r => r.Sender)
             .NotNull()
             .WithMessage("Sender can not be null");
 
         RuleFor(r => r.Message)
-            .NotNull()
-            .WithMessage("Message can not be null");
+            .Custom((m, context) =>
+            {
+                if (m == null)
+                    context.AddFailure("Message", "Message can not be null");
+                else
+                {
+                    if (string.IsNullOrWhiteSpace(m.Body))
+                        context.AddFailure("Body", "Message body can not be null or empty");
 
-        RuleFor(r => r.Message.Body)
-            .NotNull()
-            .NotEmpty()
-            .WithMessage("Message body can not be null or empty");
-
-        RuleFor(r => r.Message.To)
-            .NotNull()
-            .NotEmpty()
-            .WithMessage("Message To can not be null or empty");
+                    if (string.IsNullOrWhiteSpace(m.To))
+                        context.AddFailure("To", "Message to can not be null or empty");
+                }
+            });
     }
 }
 
-internal class SendNotificationCommandHandler
+public class SendNotificationCommandHandler
     : IRequestHandler<SendNotificationCommand, Unit>
 {
     public async Task<Unit> Handle(SendNotificationCommand command, CancellationToken cancellationToken)
