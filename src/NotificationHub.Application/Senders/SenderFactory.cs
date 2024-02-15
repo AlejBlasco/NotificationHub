@@ -5,11 +5,11 @@ using System.Text.Json;
 
 namespace NotificationHub.Application.Senders;
 
-internal static class SenderFactory
+public static class SenderFactory
 {
     private static readonly Dictionary<NotificationType, ISender> _cache = new Dictionary<NotificationType, ISender>();
 
-    internal static ISender? GetSender(NotificationType type, MediatR.ISender mediator, ILogger logger)
+    public static ISender? GetSender(NotificationType type, MediatR.ISender mediator, ILogger logger)
     {
         if (!_cache.TryGetValue(type, out ISender? sender))
         {
@@ -43,5 +43,10 @@ internal static class SenderFactory
             }
         }
         return sender;
+    }
+
+    public static void ClearCache()
+    {
+        _cache.Clear();
     }
 }

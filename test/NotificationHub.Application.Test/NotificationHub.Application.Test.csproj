@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <Folder Include="Mocks\" />
-    <Folder Include="Sender\" />
   </ItemGroup>
 
   <ItemGroup>
