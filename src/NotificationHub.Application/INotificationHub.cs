@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NotificationHub.Application;
+﻿namespace NotificationHub.Application;
 
 public interface INotificationHub
 {
+    Task SendNotification(string messageBody, string? messageSubject, string messageTo, NotificationType senderType);
 }
