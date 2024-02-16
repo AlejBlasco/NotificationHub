@@ -20,7 +20,7 @@ public class SenderFactoryTests
     [InlineData(NotificationType.Email_O365)]
     [InlineData(NotificationType.SMS)]
     //[InlineData(NotificationType.WhatsApp)]
-    public void Factory_ShouldReturnISender_IfParamsAreCorrectAndSenderAreConfig(NotificationType notificationType)
+    public void Factory_ShouldReturnISender_IfParamsAreCorrectAndSenderIsConfig(NotificationType notificationType)
     {
         // Arrange
         var mediator = new Mock<MediatR.ISender>();
@@ -40,7 +40,7 @@ public class SenderFactoryTests
     [InlineData(NotificationType.Email_O365)]
     [InlineData(NotificationType.SMS)]
     [InlineData(NotificationType.WhatsApp)]
-    public void Factory_ShouldReturnNull_IfSenderAreNotConfig(NotificationType notificationType)
+    public void Factory_ShouldReturnNull_IfSenderIsNotConfig(NotificationType notificationType)
     {
         // Arrange
         var mediator = new Mock<MediatR.ISender>();

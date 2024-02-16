@@ -25,7 +25,7 @@ public class GetSenderConfigurationByTypeQueryHandler
         {
             if (query.Type == NotificationType.Email_SMTP)
                 jsonConfig = _configuration["Configurations:Smtp"];
-        });
+        }, cancellationToken);
 
         return jsonConfig ?? string.Empty;
     }

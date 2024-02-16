@@ -15,9 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationHub.Application
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationHub.API", "src\NotificationHub.API\NotificationHub.API.csproj", "{A2DCDE95-47A1-4706-BB97-A6A50F5743A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationHub.API.Test", "test\NotificationHub.API.Test\NotificationHub.API.Test.csproj", "{8F021CDB-20F2-46D3-BF98-58434C101D1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationHub.API.Test", "test\NotificationHub.API.Test\NotificationHub.API.Test.csproj", "{8F021CDB-20F2-46D3-BF98-58434C101D1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationHub.Application.Test", "test\NotificationHub.Application.Test\NotificationHub.Application.Test.csproj", "{18E30622-8422-4FA3-84F9-4EF066BFE919}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationHub.Application.Test", "test\NotificationHub.Application.Test\NotificationHub.Application.Test.csproj", "{18E30622-8422-4FA3-84F9-4EF066BFE919}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
