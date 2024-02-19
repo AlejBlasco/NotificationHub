@@ -23,7 +23,7 @@ public class AzureServiceBusConfigurationTests
     }
 
     [Fact]
-    public async Task Validator_ShouldThrowException_IfNoConnectionString()
+    public async Task Validator_ShouldReturnError_IfNoConnectionString()
     {
         // Arrange
         AzureServiceBusConfiguration? instance = JsonSerializer.Deserialize<AzureServiceBusConfiguration>
@@ -40,7 +40,7 @@ public class AzureServiceBusConfigurationTests
     }
 
     [Fact]
-    public async Task Validator_ShouldTrhowException_IfNoQueueName()
+    public async Task Validator_ShouldReturnError_IfNoQueueName()
     {
         // Arrange
         AzureServiceBusConfiguration? instance = JsonSerializer.Deserialize<AzureServiceBusConfiguration>
@@ -59,7 +59,7 @@ public class AzureServiceBusConfigurationTests
     [Theory]
     [InlineData("{\"ConnectionString\":\"aaaa\",\"QueueName\":\"bbb\", \"MaxMessagesPerBatch\": 0, \"MaxWaitTime\":\"00:00:02\"}")]
     [InlineData("{\"ConnectionString\":\"aaaa\",\"QueueName\":\"bbb\", \"MaxMessagesPerBatch\": -1, \"MaxWaitTime\":\"00:00:02\"}")]
-    public async Task Validator_ShouldTrhowException_IfMaxMessagesLowerOrEqualZero(string jsonConfig)
+    public async Task Validator_ShouldReturnError_IfMaxMessagesLowerOrEqualZero(string jsonConfig)
     {
         // Arrange
         AzureServiceBusConfiguration? instance = JsonSerializer.Deserialize<AzureServiceBusConfiguration>(jsonConfig);
@@ -75,7 +75,7 @@ public class AzureServiceBusConfigurationTests
     }
 
     [Fact]
-    public async Task Validator_ShouldTrhowException_IfMaxWaitTimeLowerEqualZero()
+    public async Task Validator_ShouldReturnError_IfMaxWaitTimeLowerEqualZero()
     {
         // Arrange
         AzureServiceBusConfiguration? instance = JsonSerializer.Deserialize<AzureServiceBusConfiguration>
