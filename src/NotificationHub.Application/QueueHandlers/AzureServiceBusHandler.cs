@@ -38,8 +38,8 @@ public class AzureServiceBusHandler : IQueueHandler
             ServiceBusReceiver receiver = client.CreateReceiver(_configuration.QueueName);
 
             // Read
-            IAsyncEnumerable<ServiceBusReceivedMessage> receivedMessages = receiver.ReceiveMessagesAsync(cancellationToken);
-            count = receivedMessages.ToBlockingEnumerable()
+            var receivedMessages = receiver.ReceiveMessagesAsync(_configuration.MaxMessagesPerBatch, _configuration.MaxWaitTime, cancellationToken);
+            count = receivedMessages.Result
                 .Count();
             await receiver.DisposeAsync();
 
@@ -73,8 +73,8 @@ public class AzureServiceBusHandler : IQueueHandler
                 });
 
             // Read
-            IAsyncEnumerable<ServiceBusReceivedMessage> receivedMessages = receiver.ReceiveMessagesAsync(cancellationToken);
-            foreach (ServiceBusReceivedMessage receivedMessage in receivedMessages.ToBlockingEnumerable())
+            var receivedMessages = receiver.ReceiveMessagesAsync(_configuration.MaxMessagesPerBatch, _configuration.MaxWaitTime, cancellationToken);
+            foreach (ServiceBusReceivedMessage receivedMessage in receivedMessages.Result)
             {
                 messages.Add(key: receivedMessage.MessageId,
                     value: receivedMessage.Body.ToString());
