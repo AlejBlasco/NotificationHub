@@ -12,7 +12,7 @@ namespace NotificationHub.API
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            //builder.Services.AddEndpointsApiExplorer()
+            builder.Services.AddEndpointsApiExplorer();
             //    .AddSwaggerGen();
             builder.Services.AddSwaggerGen(c =>
             {
@@ -41,6 +41,10 @@ namespace NotificationHub.API
                 {
                     options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
                 });
+            }
+            else
+            {
+                app.UseHsts();
             }
             //app.MapGroup("/api").WithOpenApi();
             //if (app.Environment.IsDevelopment()) _ = app.UseSwagger().UseSwaggerUI();
