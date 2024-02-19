@@ -13,7 +13,7 @@ env:
   AZURE_APIM_APPSERVICEURL: https://notificationhubdemo.azurewebsites.net
   SWASHBUCLE_ASPNET_CORE_CLI_PACKAGE_VERSION: 5.6.3
   SWASHBUCKLE_DOTNET_CORE_VERSION: 3.1.x
-  # API_IMPORT_SPECIFICATION_PATH: src\NotificationHub.API\publish\swagger.json
+  #API_IMPORT_SPECIFICATION_PATH: src\NotificationHub.API\publish\swagger.json
   API_IMPORT_SPECIFICATION_PATH: swagger\v1\swagger.json
   API_IMPORT_DLL: src\NotificationHub.API\bin\Release\net8.0\NotificationHub.API.dll
   API_IMPORT_VERSION: v1
@@ -31,8 +31,8 @@ jobs:
         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
     - name: Setup SwashBuckle .NET Core
       uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: ${{ env.SWASHBUCKLE_DOTNET_CORE_VERSION }}
+      # with:
+      #   dotnet-version: ${{ env.SWASHBUCKLE_DOTNET_CORE_VERSION }}
     # Restore nugets
     - name: Restore
       run: dotnet restore ${{ env.WORKING_DIRECTORY }}
