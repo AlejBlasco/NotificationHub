@@ -2,7 +2,7 @@ name: Compile e implemente la aplicación de .NET Core en la aplicación web Not
 on:
   push:
     branches:
-    - master
+    - develop
 env:
   AZURE_WEBAPP_NAME: NotificationHubDemo
   AZURE_WEBAPP_PACKAGE_PATH: src\NotificationHub.API\publish
