@@ -234,4 +234,26 @@ public class EmailOffice365SenderTests
         // Assert
         await act.Should().ThrowAsync<FluentValidation.ValidationException>();
     }
+
+    [Fact]
+    public async Task Send_ShouldThrowTaskObjectDisposedException_IfCancelled()
+    {
+        // Arrange
+        var jsonConfig = "{\"AuthClientId\": \"AuthClientId\",\"AuthTenantId\": \"AuthTenantId\",\"AuthClientSecret\": \"AuthClientSecret\",\"AuthorityUrlBase\": \"https://www.test.com\",\"GraphClientSecret\": \"GraphClientSecret\",\"GraphApiEndpoint\": \"GraphApiEndpoint\",\"EmailFrom\": \"EmailFrom@test.com\"}"; Office365Configuration? configuration = JsonSerializer.Deserialize<Office365Configuration>(jsonConfig);
+
+        Senders.ISender sender = new EmailOffice365Sender(configuration!, _logger.Object);
+
+        var cancellationTokenSource = new CancellationTokenSource();
+        cancellationTokenSource.Cancel();
+
+        // Act
+        var act = async () =>
+        {
+            await sender.SendAsync("to@to.com", "subject", "body", cancellationTokenSource.Token);
+        };
+        cancellationTokenSource.Dispose();
+
+        // Assert
+        await act.Should().ThrowAsync<ObjectDisposedException>();
+    }
 }

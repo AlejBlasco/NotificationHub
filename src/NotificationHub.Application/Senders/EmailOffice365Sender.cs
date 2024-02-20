@@ -43,6 +43,10 @@ public class EmailOffice365Sender : ISender
             if (string.IsNullOrWhiteSpace(body))
                 throw new FluentValidation.ValidationException("Body must not be null or empty");
 
+            // Manage cancelled
+            if (cancellationToken.IsCancellationRequested)
+                await Task.FromCanceled(cancellationToken);
+
             // Set up the authentication context and acquire a token
             var authBuilder = ConfidentialClientApplicationBuilder
                 .Create(_config.AuthClientId)
@@ -80,10 +84,6 @@ public class EmailOffice365Sender : ISender
                     }
                 }
             };
-
-            // Manage cancelled
-            if (cancellationToken.IsCancellationRequested)
-                await Task.FromCanceled(cancellationToken);
 
             // Send
             var jsonMessage = JsonSerializer.Serialize(emailMessage);
