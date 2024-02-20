@@ -22,7 +22,7 @@ public class EmailOffice365Sender : ISender
             ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    public async Task SendAsync(string to, string? subject, string body, CancellationToken cancellationToken)
+    public async Task SendAsync(string? to, string? subject, string? body, CancellationToken cancellationToken)
     {
         try
         {
