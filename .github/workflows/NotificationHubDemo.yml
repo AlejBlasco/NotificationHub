@@ -1,8 +1,8 @@
-name: Compile e implemente la aplicación de .NET Core en la aplicación web NotificationHubDemo con el servicio API Management NotificationHubAPIMan-NotificationHubAPI
+name: Debug + Test + Azure Publish
 on:
   push:
     branches:
-    - develop
+    - master
 env:
   AZURE_WEBAPP_NAME: NotificationHubDemo
   AZURE_WEBAPP_PACKAGE_PATH: src\NotificationHub.API\publish
