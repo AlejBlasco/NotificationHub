@@ -1,5 +1,6 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
 name: .NET Build & Test
 
 on:
@@ -10,6 +11,7 @@ on:
 env:
   CONFIGURATION: Release
   WORKING_DIRECTORY: src\NotificationHub.API
+
 jobs:
   build:
 
@@ -21,9 +23,7 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 8.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    
+        
     # Restore nugets
     - name: Restore
       run: dotnet restore ${{ env.WORKING_DIRECTORY }}
