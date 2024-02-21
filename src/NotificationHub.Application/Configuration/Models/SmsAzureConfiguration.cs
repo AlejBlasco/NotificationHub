@@ -4,13 +4,23 @@ namespace NotificationHub.Application.Configuration.Models;
 
 public class SmsAzureConfiguration
 {
+    public string? CommunicationServiceConnectionString { get; set; }
+    public string? PhoneFrom { get; set; }
 }
 
-internal class SmsAzureConfigurationValidator
+public class SmsAzureConfigurationValidator
     : AbstractValidator<SmsAzureConfiguration>
 {
-    internal SmsAzureConfigurationValidator()
+    public SmsAzureConfigurationValidator()
     {
+        RuleFor(r => r.CommunicationServiceConnectionString)
+            .NotNull()
+            .NotEmpty()
+            .WithMessage("CommunicationServiceConnectionString can not be null or empty");
 
+        RuleFor(r => r.PhoneFrom)
+            .NotNull()
+            .NotEmpty()
+            .WithMessage("PhoneFrom can not be null or empty");
     }
 }

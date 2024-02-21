@@ -36,7 +36,7 @@ public class EmailSmtpSenderTests
     }
 
     [Fact]
-    public async Task Send_ShouldThrowValidationException_IfNotEmailFrom()
+    public async Task Send_ShouldThrowValidationException_IfEmailFromIsEmpty()
     {
         // Arrange
         var jsonConfig = "{\"EmailFrom\":\"\",\"User\":\"b\",\"Password\":\"c\",\"Server\":\"d\",\"ServerPort\":1,\"EnableSSL\":false,\"EnableHtmlBody\":false}";
@@ -74,7 +74,7 @@ public class EmailSmtpSenderTests
     }
 
     [Fact]
-    public async Task Send_ShouldThrowValidationException_IfNotUser()
+    public async Task Send_ShouldThrowValidationException_IfUserIsEmpty()
     {
         // Arrange
         var jsonConfig = "{\"EmailFrom\":\"aaaaa\",\"User\":\"\",\"Password\":\"c\",\"Server\":\"d\",\"ServerPort\":1,\"EnableSSL\":false,\"EnableHtmlBody\":false}";
@@ -93,7 +93,7 @@ public class EmailSmtpSenderTests
     }
 
     [Fact]
-    public async Task Send_ShouldThrowValidationException_IfNotPassword()
+    public async Task Send_ShouldThrowValidationException_IfPasswordIsEmpty()
     {
         // Arrange
         var jsonConfig = "{\"EmailFrom\":\"aaaaa\",\"User\":\"b\",\"Password\":\"\",\"Server\":\"d\",\"ServerPort\":1,\"EnableSSL\":false,\"EnableHtmlBody\":false}";
@@ -112,7 +112,7 @@ public class EmailSmtpSenderTests
     }
 
     [Fact]
-    public async Task Send_ShouldThrowValidationException_IfNotServer()
+    public async Task Send_ShouldThrowValidationException_IfServerIsEmpty()
     {
         // Arrange
         var jsonConfig = "{\"EmailFrom\":\"a@a.com\",\"User\":\"b\",\"Password\":\"c\",\"Server\":\"\",\"ServerPort\":1,\"EnableSSL\":false,\"EnableHtmlBody\":false}";
@@ -131,7 +131,7 @@ public class EmailSmtpSenderTests
     }
 
     [Fact]
-    public async Task Send_ShouldThrowValidationException_IfNotTo()
+    public async Task Send_ShouldThrowValidationException_IfToIsEmpty()
     {
         // Arrange
         var jsonConfig = "{\"EmailFrom\":\"a@a.com\",\"User\":\"b\",\"Password\":\"c\",\"Server\":\"d\",\"ServerPort\":1,\"EnableSSL\":false,\"EnableHtmlBody\":false}";
@@ -171,4 +171,6 @@ public class EmailSmtpSenderTests
         // Assert
         await act.Should().ThrowAsync<ObjectDisposedException>();
     }
+
+
 }

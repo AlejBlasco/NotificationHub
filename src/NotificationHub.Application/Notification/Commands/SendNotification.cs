@@ -39,7 +39,7 @@ public class SendNotificationCommandHandler
     public async Task<Unit> Handle(SendNotificationCommand command, CancellationToken cancellationToken)
     {
         await command.Sender!
-            .SendAsync(command.Message.To, command.Message.Subject, command.Message.Body, cancellationToken);
+            .SendAsync(command.Message!.To, command.Message.Subject, command.Message.Body, cancellationToken);
 
         return Unit.Value;
     }

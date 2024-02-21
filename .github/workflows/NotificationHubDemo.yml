@@ -1,4 +1,4 @@
-name: Compile e implemente la aplicación de .NET Core en la aplicación web NotificationHubDemo con el servicio API Management NotificationHubAPIMan-NotificationHubAPI
+name: Debug + Test + Azure Publish
 on:
   push:
     branches:
@@ -14,6 +14,7 @@ env:
   SWASHBUCLE_ASPNET_CORE_CLI_PACKAGE_VERSION: 5.6.3
   SWASHBUCKLE_DOTNET_CORE_VERSION: 3.1.x
   API_IMPORT_SPECIFICATION_PATH: src\NotificationHub.API\publish\swagger.json
+  #API_IMPORT_SPECIFICATION_PATH: swagger\v1\swagger.json
   API_IMPORT_DLL: src\NotificationHub.API\bin\Release\net8.0\NotificationHub.API.dll
   API_IMPORT_VERSION: v1
   CONFIGURATION: Release
@@ -30,19 +31,28 @@ jobs:
         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
     - name: Setup SwashBuckle .NET Core
       uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: ${{ env.SWASHBUCKLE_DOTNET_CORE_VERSION }}
+      # with:
+      #   dotnet-version: ${{ env.SWASHBUCKLE_DOTNET_CORE_VERSION }}
+    # Restore nugets
     - name: Restore
       run: dotnet restore ${{ env.WORKING_DIRECTORY }}
+    
+    # Build solution
     - name: Build
       run: dotnet build ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-restore
+
+    # Execute TEST
     - name: Test
       run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-build
+
+    #Publish
     - name: Publish
       run: dotnet publish ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
     - name: Install Swashbuckle CLI .NET Global Tool
-      run: dotnet tool install --global Swashbuckle.AspNetCore.Cli --version ${{ env.SWASHBUCLE_ASPNET_CORE_CLI_PACKAGE_VERSION }}
+      run: dotnet tool install --global Swashbuckle.AspNetCore.Cli
       working-directory: ${{ env.WORKING_DIRECTORY }}
+      # run: dotnet tool install --global Swashbuckle.AspNetCore.Cli --version ${{ env.SWASHBUCLE_ASPNET_CORE_CLI_PACKAGE_VERSION }}
+      # working-directory: ${{ env.WORKING_DIRECTORY }}
     - name: Generate Open API Specification Document
       run: swagger tofile --output "${{ env.API_IMPORT_SPECIFICATION_PATH }}" "${{ env.API_IMPORT_DLL }}" "${{ env.API_IMPORT_VERSION }}"
     - name: Publish Artifacts
