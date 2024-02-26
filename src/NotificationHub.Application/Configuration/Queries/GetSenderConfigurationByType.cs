@@ -25,6 +25,10 @@ public class GetSenderConfigurationByTypeQueryHandler
         {
             if (query.Type == NotificationType.Email_SMTP)
                 jsonConfig = _configuration["Configurations:Smtp"];
+            else if (query.Type == NotificationType.Email_O365)
+                jsonConfig = _configuration["Configurations:O365"];
+            else if (query.Type == NotificationType.SMS)
+                jsonConfig = _configuration["Configurations:AzureComm"];
         }, cancellationToken);
 
         return jsonConfig ?? string.Empty;
